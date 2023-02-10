@@ -25,10 +25,7 @@ public class UserDaoJDBCImpl implements UserDao {
                     " age INTEGER, " +
                     " PRIMARY KEY ( id ));";
             statement.executeUpdate(sql);
-            System.out.println("Таблица USERS успешно создана!");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
@@ -36,12 +33,9 @@ public class UserDaoJDBCImpl implements UserDao {
     public void dropUsersTable() {
         try (Connection connection = util.getConnection()) {
             Statement statement = connection.createStatement();
-            String sql = "DROP TABLE USERS;";
+            String sql = "DROP TABLE IF EXISTS USERS;";
             statement.executeUpdate(sql);
-            System.out.println("Таблица USERS успешно удалена!");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
@@ -52,10 +46,7 @@ public class UserDaoJDBCImpl implements UserDao {
             String sql = "INSERT USERS(name, lastname, age) " +
                     "VALUES ('" + name + "', '" + lastName + "', " + age + "); ";
             statement.executeUpdate(sql);
-            System.out.println("Пользователь " + name + " успешно добавлен.");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
@@ -65,10 +56,7 @@ public class UserDaoJDBCImpl implements UserDao {
             Statement statement = connection.createStatement();
             String sql = "DELETE FROM USERS WHERE id = " + id + ";";
             statement.executeUpdate(sql);
-            System.out.println("Пользователь " + id + " успешно удален.");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
@@ -90,11 +78,8 @@ public class UserDaoJDBCImpl implements UserDao {
 
                 result.add(user);
             }
-            System.out.println("Пользователи успешно получены.");
             return result;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
@@ -104,10 +89,7 @@ public class UserDaoJDBCImpl implements UserDao {
             Statement statement = connection.createStatement();
             String sql = "TRUNCATE USERS;";
             statement.executeUpdate(sql);
-            System.out.println("Таблица успешно очистилась.");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }

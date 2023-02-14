@@ -15,6 +15,9 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public void createUsersTable() {
+//        конструкция с двойным try вынужденная, так как Java 8 ругается,
+//            если объявить переменную до try. В Java 9 это исправили,
+//                но пока что такой вот костыль
         try (Connection connection = Util.getConnection()) {
             try {
                 connection.setAutoCommit(false);
